@@ -1,6 +1,8 @@
 package demo.northwindDemo.business.concretes;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import demo.northwindDemo.business.abstracts.ProductService;
 import demo.northwindDemo.core.DataResult;
@@ -21,13 +23,13 @@ public class ProductManager implements ProductService {
 
 	@Override
 	public Result addProduct(Product product) {
-		this.productDao.save(product);		
+		this.productDao.save(product);
 		return new SuccesResult("Ekleme basarili");
 	}
 
 	@Override
-	public Result deleteProduct(Product product) {
-		this.productDao.delete(product);		
+	public Result deleteProductById(int productId) {
+		this.productDao.deleteById(productId);
 		return new SuccesResult("Silme islemi basarili");
 	}
 
@@ -65,11 +67,22 @@ public class ProductManager implements ProductService {
 	}
 
 	@Override
-	public DataResult<List<Product>> getProducts() {		
+	public DataResult<List<Product>> getProducts() {
 		return new SuccessDataResult<List<Product>>
 		("Urunler listelendi",this.productDao.findAll()
-				);				
+				);
 	}
 
+	@Override
+	public DataResult<Integer> deleteByProductName(String ProductName) {
+		return new SuccessDataResult<>(this.productDao.deleteByProductName(ProductName));
+	}
+
+	public DataResult<List<Product>> getProductByPage(int pageNumber,int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber-1, pageSize);
+		return new SuccessDataResult<List<Product>>
+				("Urunler listelendi", this.productDao.findAll(pageable).getContent()
+				);
+	}
 
 }

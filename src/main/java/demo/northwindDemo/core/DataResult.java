@@ -7,13 +7,10 @@ public class DataResult<T> extends Result{
 		super(isSuccess,message);
 		this.data = data;		
 	}
-	
 	public DataResult(boolean isSuccess, T data) {
 		super(isSuccess);
 		this.data = data;
 	}
-	
-	
 	public T getData()	{
 		return this.data;
 	}

@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import demo.northwindDemo.entities.concretes.Product;
 
 public interface ProductDao extends JpaRepository<Product, Integer>{
-	
+
+    int deleteByProductName(String ProductName);
+
 	Product getByProductName(String productName);
 	
 	Product getByProductNameAndCategory_categoryId(String productName,int categoryId);

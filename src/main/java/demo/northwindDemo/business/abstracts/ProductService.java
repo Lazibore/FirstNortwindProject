@@ -7,10 +7,14 @@ import demo.northwindDemo.entities.concretes.Product;
 public interface ProductService {
 	
 	DataResult<List<Product>> getProducts();
-	
+
+	DataResult<Integer> deleteByProductName(String productName);
+
 	Result addProduct(Product product);
-	
-	Result deleteProduct(Product product);
+
+	DataResult<List<Product>> getProductByPage(int pageNumber,int pageSize);
+
+	Result deleteProductById(int productId);
 	
 	DataResult<Product> getByProductName(String productName);
 	
